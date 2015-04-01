@@ -1,2 +1,2 @@
 # globalazurebootcampreport
-The sample application for my presentation on Globa Azure Bootcamp
+The sample application for my presentation on Global Azure Bootcamp
