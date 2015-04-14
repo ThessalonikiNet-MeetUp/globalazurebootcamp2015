@@ -1,10 +1,12 @@
------------------------------------------------------------
+
 >Thessaloniki Global Azure Bootcamp - Saturday 25 April
 >Azure Mobile Services
 >Presentation Case
 >Warning: That document is subject to change until presenation
-------------------------------------------------------------
+
+
 ##  Leveraging Azure Mobile Services for Better Mobile Apps
+===========================================================
 #### Showcase
 The scenario we examine here is a simple mobile app for the conference attendees.
 We have the following simple cases.
