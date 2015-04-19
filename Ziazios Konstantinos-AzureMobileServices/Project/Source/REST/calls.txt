@@ -1,0 +1,12 @@
+GET https://skgazure2015.azure-mobile.net/Tables/lecture
+
+POST https://skgazure2015.azure-mobile.net/Tables/lecture
+X-ZUMO-APPLICATION:1111
+ {
+    "title" :"lesson1",
+    "description":"test1"
+    
+}
+
+DELETE https://skgazure2015.azure-mobile.net/Tables/lecture/FF61BC5D-4167-410B-9BC0-5FB3BCCFEBE9
+
