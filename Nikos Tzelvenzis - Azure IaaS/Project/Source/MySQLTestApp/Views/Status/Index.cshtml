@@ -1,0 +1,56 @@
+﻿@model MySQLTestApp.Models.Status
+
+@{
+    ViewBag.Title = "Computer Status";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.ComputerName)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.ComputerName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LocalTime)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.LocalTime)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Processes)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Processes)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.MemoryTotal)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.MemoryTotal)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.MemoryFree)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.MemoryFree)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.CPUThreasCount)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CPUThreasCount)
+    </dd>
+
+</dl>
