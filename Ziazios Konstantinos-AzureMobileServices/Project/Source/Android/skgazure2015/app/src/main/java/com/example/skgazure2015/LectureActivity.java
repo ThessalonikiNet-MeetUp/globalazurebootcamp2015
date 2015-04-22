@@ -26,15 +26,16 @@ import com.microsoft.windowsazure.mobileservices.http.ServiceFilterRequest;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.microsoft.windowsazure.mobileservices.table.query.QueryOrder;
-
+import com.microsoft.windowsazure.notifications.NotificationsManager;
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.*;
 
 public class LectureActivity extends Activity {
 
+    public static final String SENDER_ID = "wtf";
     /**
      * Mobile Service Client reference
      */
-    private MobileServiceClient mClient;
+    public static  MobileServiceClient mClient;
 
     /**
      * Mobile Service Table used to access data
@@ -89,6 +90,8 @@ public class LectureActivity extends Activity {
 
             // Load the items from the Mobile Service
             refreshItemsFromTable();
+
+            NotificationsManager.handleNotifications(this, SENDER_ID, MyHandler.class);
 
         } catch (MalformedURLException e) {
             createAndShowDialog(new Exception("There was an error creating the Mobile Service. Verify the URL"), "Error");
