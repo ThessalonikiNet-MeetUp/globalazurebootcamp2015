@@ -18,7 +18,7 @@ namespace MySQLTestApp.Controllers
             try
             {
                 HttpClient client = new HttpClient();
-                var response = client.GetAsync("http://192.168.23.6:9000/agent/status").Result;
+                var response = client.GetAsync("http://192.168.23.8:9000/agent/status").Result;
                 JsonSerializer ser = new JsonSerializer();
                 StringReader sr = new StringReader(response.Content.ReadAsStringAsync().Result);
 

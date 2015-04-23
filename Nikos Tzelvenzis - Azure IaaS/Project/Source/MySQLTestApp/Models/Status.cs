@@ -17,6 +17,12 @@ namespace MySQLTestApp.Models
         public long MemoryTotal { get; set; }
         public long MemoryFree { get; set; }
         public int Processes { get; set; }
-        
+        public long MemoryTotalMB
+        {
+            get
+            {
+                return MemoryTotal/1024/1024;
+            }
+        }
     }
 }

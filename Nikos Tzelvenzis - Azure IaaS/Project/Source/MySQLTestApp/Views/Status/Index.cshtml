@@ -7,6 +7,9 @@
 <h2>@ViewBag.Title</h2>
 
 <hr />
+<h3>Memory</h3>
+<canvas id="memoryChart" width="200" height="200"></canvas>
+
 <dl class="dl-horizontal">
     <dt>
         @Html.DisplayNameFor(model => model.ComputerName)
@@ -36,14 +39,7 @@
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.MemoryTotal)
-    </dd>
-    <dt>
-        @Html.DisplayNameFor(model => model.MemoryFree)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.MemoryFree)
+        @Html.DisplayFor(model => model.MemoryTotalMB) MB
     </dd>
     <dt>
         @Html.DisplayNameFor(model => model.CPUThreasCount)
@@ -54,3 +50,34 @@
     </dd>
 
 </dl>
+
+
+@section Scripts{
+    <script type="text/javascript">
+    $(function () {
+        var data = [
+    {
+        value: @(Model.MemoryFree / 1024 /1024),
+        color: "#F7464A",
+        highlight: "#FF5A5E",
+        label: "Used"
+    },
+    {
+        value: @((Model.MemoryTotal - Model.MemoryFree)/1024/1024),
+            color: "#46BFBD",
+            highlight: "#5AD3D1",
+            label: "Free"
+        }
+            ];
+            var ctx = document.getElementById("memoryChart").getContext("2d");
+            var myDoughnutChart = new Chart(ctx).Doughnut(data, { animateScale: true });
+
+        });
+
+
+
+    </script>
+    
+    
+    
+    }
