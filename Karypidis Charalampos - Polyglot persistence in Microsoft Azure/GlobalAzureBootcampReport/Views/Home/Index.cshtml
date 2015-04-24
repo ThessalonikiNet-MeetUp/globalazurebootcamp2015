@@ -1,0 +1,43 @@
+﻿@model GlobalAzureBootcampReport.Models.IndexViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @Html.React("Components.App", new
+                                {
+                                    initialStats = Model.UsersStats,
+                                    initialTweets = Model.Tweets,
+                                    isAuthenticated = User.Identity.IsAuthenticated,
+                                    user = Model.User
+                                }, containerId: "app")
+
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react-with-addons.min.js"></script>
+    @Scripts.Render("~/bundles/scripts")
+    <script src="~/signalr/hubs"></script>
+    <script src="@Url.Content("~/Scripts/build/client.bundle.js")"></script>
+    @Html.ReactInitJavaScript()
+    <script>
+        $(function () {
+            // Reference the auto-generated proxy for the hub.
+            var chat = $.connection.bootcampReportHub;
+            // Create a function that the hub can call back to update stats.
+            chat.client.updateUsersStats = function (usersStats) {
+                UsersStats.updateUserStats(usersStats);
+            };
+            chat.client.addTweetsToList = function (newTweets) {
+                Tweets.updateTweetsList(newTweets);
+            };
+            $.connection.hub.start().done(function () {
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+body {
+    padding-top: 70px;
+}
+
+a.navbar-brand img {
+    max-width: 100px;
+    margin-top: -18px;
+}
+
+.tweetBody {
+    font-size: 18px;
+    color: #404040;
+}
+
+.tweetHeader {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.tweetContainer {
+    margin-bottom: 5px;
+}
+
+.tweetFooter {
+    color: #cacaca;
+}
+
+.tweetFooter a {
+    margin-right: 7px;
+    color: #5b79cc;
+}
+
+.userStats {
+
+}
+
+.userStats ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.userStats ul li {
+    position: relative;
+    display: block;
+    clear: both;
+    margin-bottom: 30px;
+}
+
+.userImage {
+    position: relative;
+    float: left;
+    display: block;
+    margin-right: 10px;
+    width: 48px;
+    height: 48px;
+    background: #01A0EE;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.userImage img {
+    width: 48px;
+    height: 48px;
+}
+
+.userName {
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.userName {
+    font-size: 14px;
+}
+
+.navbar {
+    background-color: #01a0ee
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white
+}

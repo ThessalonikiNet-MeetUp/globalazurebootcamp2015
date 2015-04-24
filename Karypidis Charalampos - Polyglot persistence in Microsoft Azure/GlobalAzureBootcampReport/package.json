@@ -1,0 +1,26 @@
+ {
+  "name": "GlobalAzureBootcampReport",
+  "version": "1.0.0",
+  "description": "The presentation application for Global Azure Bootcamp 2015",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xabikos/globalazurebootcampreport.git"
+  },
+  "keywords": [
+    "polyglot",
+    "persistence"
+  ],
+  "author": "Charalampos Karypidis",
+  "license": "ISC",
+  "devDependencies": {
+    "expose-loader": "^0.6.0",
+    "gulp": "^3.8.11",
+    "gulp-webpack-build": "^0.6.1",
+    "jsx-loader": "^0.13.1",
+    "webpack": "^1.7.3"
+  }
+}
