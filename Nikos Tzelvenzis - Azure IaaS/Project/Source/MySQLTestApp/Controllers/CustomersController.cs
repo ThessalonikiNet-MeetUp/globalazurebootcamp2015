@@ -17,7 +17,7 @@ namespace MySQLTestApp.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customer.OrderBy(x=> x.customer).ToList());
+            return View(db.Customer.OrderByDescending(x=> x.TotalRevenue).ToList());
         }
 
         // GET: Customers/Details/5
