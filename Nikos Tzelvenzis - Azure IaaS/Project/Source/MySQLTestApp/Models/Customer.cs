@@ -16,8 +16,8 @@ namespace MySQLTestApp.Models
 
         public string customer { get; set; }
 
-        public string nit { get; set; }
-
         public string address { get; set; }
+        [Column("total_revenue")]
+        public decimal TotalRevenue { get; set; }
     }
 }

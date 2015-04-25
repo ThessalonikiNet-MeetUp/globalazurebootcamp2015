@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -17,15 +18,17 @@ namespace MySQLTestApp.Controllers
         {
             try
             {
+                var url = ConfigurationManager.AppSettings["COMPUTER_STATUS_URL"];
+
                 HttpClient client = new HttpClient();
-                var response = client.GetAsync("http://192.168.23.8:9000/agent/status").Result;
+                var response = client.GetAsync(url).Result;
                 JsonSerializer ser = new JsonSerializer();
                 StringReader sr = new StringReader(response.Content.ReadAsStringAsync().Result);
 
                 Status status = (Status)ser.Deserialize(sr, typeof(Status));
                 return View(status);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return View();
             }
