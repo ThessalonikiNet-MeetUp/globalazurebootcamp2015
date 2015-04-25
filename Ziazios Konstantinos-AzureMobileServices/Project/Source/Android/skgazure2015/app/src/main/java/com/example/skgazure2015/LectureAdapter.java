@@ -1,7 +1,11 @@
 package com.example.skgazure2015;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,20 +57,31 @@ public class LectureAdapter extends ArrayAdapter<Lecture> {
         checkBox.setEnabled(true);
         if(currentItem.getWhen()!=null) {
             final TextView whenText = (TextView) row.findViewById(R.id.whenDate);
-            whenText.setText(currentItem.getWhen().toString());
+            final TextView authorText = (TextView) row.findViewById(R.id.author);
+            final TextView descriptionText = (TextView) row.findViewById(R.id.description);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm");
+
+            whenText.setText(dateFormat.format(currentItem.getWhen()));
+            authorText.setText(currentItem.getAuthor());
+            descriptionText.setText(currentItem.getDescription());
         }
 
         checkBox.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                if (checkBox.isChecked()) {
+
+                CommentActivity activity = new CommentActivity();
+                Intent intent = new Intent(getContext(), CommentActivity.class);
+                intent.putExtra("lecture", currentItem.getTitle());
+                getContext().startActivity(intent);
+               /* if (checkBox.isChecked()) {
                     checkBox.setEnabled(false);
                     if (mContext instanceof LectureActivity) {
                         LectureActivity activity = (LectureActivity) mContext;
                         activity.checkItem(currentItem);
                     }
-                }
+                }*/
             }
         });
 

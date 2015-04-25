@@ -1,0 +1,27 @@
+Resources
+========================
+Official services:
+http://azure.microsoft.com/en-us/documentation/services/mobile-services/
+
+Presentation material:
+https://github.com/ThessalonikiNet-MeetUp/DevCamp/tree/master/Presentation/Mobile
+
+Example
+https://code.msdn.microsoft.com/windowsapps/Enqueue-and-Dequeue-e9429caa
+
+Tutorial:
+Pluralsight: Windows Azure Mobile Services - Matt Milner
+
+Mobile Apps
+Azure Friday
+
+http://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Mobile-Apps-with-Kirill-Gavrylyuk
+
+Tools
+=======================
+Postman (rest tool)
+
+Thanks
+=========================================
+@cohogr 
+το team

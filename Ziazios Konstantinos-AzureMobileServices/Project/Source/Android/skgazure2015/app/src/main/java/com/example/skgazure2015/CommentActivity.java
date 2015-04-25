@@ -2,8 +2,8 @@ package com.example.skgazure2015;
 
 
 import java.net.MalformedURLException;
+import java.util.Date;
 import java.util.List;
-
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-
+import android.widget.TextView;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -31,19 +31,9 @@ import com.microsoft.windowsazure.mobileservices.table.query.QueryOrder;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.*;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicBoolean;
+public class CommentActivity extends Activity {
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-
-import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceAuthenticationProvider;
-import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceUser;
-
-public class LectureActivity extends Activity {
-
-    public static final String SENDER_ID = "wtf";
+    public static final String SENDER_ID = "867877191598";
     /**
      * Mobile Service Client reference
      */
@@ -52,17 +42,20 @@ public class LectureActivity extends Activity {
     /**
      * Mobile Service Table used to access data
      */
-    private MobileServiceTable<Lecture> mLectureTable;
+    private MobileServiceTable<Comment> mCommentTable;
 
     /**
      * Adapter to sync the items list with the view
      */
-    private LectureAdapter mAdapter;
+    private CommentAdapter mAdapter;
 
     /**
      * EditText containing the "New To Do" text
      */
     private EditText mTextNewToDo;
+
+
+    private String mLecture;
 
     /**
      * Progress spinner to use for table operations
@@ -75,7 +68,7 @@ public class LectureActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_to_do);
+        setContentView(R.layout.activity_comment);
 
         mProgressBar = (ProgressBar) findViewById(R.id.loadingProgressBar);
 
@@ -90,60 +83,28 @@ public class LectureActivity extends Activity {
                     "wtf",
                     this).withFilter(new ProgressFilter());
 
-          authenticate();
-            createTable();
+            // Get the Mobile Service Table instance to use
+            mCommentTable = mClient.getTable(Comment.class);
 
+            mTextNewToDo = (EditText) findViewById(R.id.textNewToDo);
+
+            //this.geta("lecture", currentItem.getTitle());
+            mLecture = getIntent().getStringExtra("lecture");
+            TextView textView = (TextView) findViewById(R.id.title_activity_comment);
+            textView.setText(mLecture);
+            // Create an adapter to bind the items with the view
+            mAdapter = new CommentAdapter(this, R.layout.comment_list);
+            ListView listViewToDo = (ListView) findViewById(R.id.listComment);
+            listViewToDo.setAdapter(mAdapter);
+
+            // Load the items from the Mobile Service
+            refreshItemsFromTable();
+
+            //NotificationsManager.handleNotifications(this, SENDER_ID, MyHandler.class);
 
         } catch (MalformedURLException e) {
             createAndShowDialog(new Exception("There was an error creating the Mobile Service. Verify the URL"), "Error");
         }
-    }
-
-    private void authenticate() {
-        // Login using the Google provider.
-
-        ListenableFuture<MobileServiceUser> mLogin = mClient.login(MobileServiceAuthenticationProvider.Twitter);
-
-        Futures.addCallback(mLogin, new FutureCallback<MobileServiceUser>() {
-            @Override
-            public void onFailure(Throwable exc) {
-                createAndShowDialog((Exception) exc, "Error");
-            }
-
-            @Override
-            public void onSuccess(MobileServiceUser user) {
-                createAndShowDialog(String.format(
-                        "You are now logged in - %1$2s",
-                        user.getUserId()), "Success");
-                createTable();
-            }
-        });
-    }
-
-    private void createTable() {
-        // Get the Mobile Service Table instance to use
-        mLectureTable = mClient.getTable(Lecture.class);
-
-        //    mTextNewToDo = (EditText) findViewById(R.id.textNewToDo);
-
-        // Create an adapter to bind the items with the view
-        mAdapter = new LectureAdapter(this, R.layout.row_list_to_do);
-        ListView listViewToDo = (ListView) findViewById(R.id.listViewToDo);
-        listViewToDo.setAdapter(mAdapter);
-
-        // Load the items from the Mobile Service
-        refreshItemsFromTable();
-
-        NotificationsManager.handleNotifications(this, SENDER_ID, MyHandler.class);
-    }
-
-    private String getUserId() {
-        if(mClient.getCurrentUser() == null) {
-            return  null;
-        } else {
-            return getUserId();
-        }
-
     }
 
     /**
@@ -173,7 +134,7 @@ public class LectureActivity extends Activity {
      * @param item
      *            The item to mark
      */
-    public void checkItem(final Lecture item) {
+    public void checkItem(final Comment item) {
         if (mClient == null) {
             return;
         }
@@ -186,7 +147,7 @@ public class LectureActivity extends Activity {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    final Lecture entity = mLectureTable.update(item).get();
+                    final Comment entity = mCommentTable.update(item).get();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -216,9 +177,11 @@ public class LectureActivity extends Activity {
         }
 
         // Create a new item
-        final Lecture item = new Lecture();
+        final Comment item = new Comment();
 
-        item.setTitle(mTextNewToDo.getText().toString());
+        item.setDescription(mTextNewToDo.getText().toString());
+        item.setWhen(new Date());
+        item.setTitle(mLecture);
         item.setComplete(false);
 
         // Insert the new item
@@ -226,13 +189,13 @@ public class LectureActivity extends Activity {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    final Lecture entity = mLectureTable.insert(item).get();
+                    final Comment entity = mCommentTable.insert(item).get();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(!entity.isComplete()){
+                          //  if(!entity.isComplete()){
                                 mAdapter.add(entity);
-                            }
+                          //  }
                         }
                     });
                 } catch (Exception e){
@@ -259,16 +222,16 @@ public class LectureActivity extends Activity {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    final List<Lecture> results =
-                          //  mLectureTable.where().field("complete").
-                           //         eq(val(false)).execute().get();
-                            mLectureTable.orderBy("when", QueryOrder.Ascending).execute().get();
+                    final List<Comment> results =
+                              mCommentTable.where().field("title").
+                                 eq(val(mLecture)).execute().get();
+                            mCommentTable.orderBy("when", QueryOrder.Ascending).execute().get();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mAdapter.clear();
 
-                            for(Lecture item : results){
+                            for(Comment item : results){
                                 mAdapter.add(item);
                             }
                         }

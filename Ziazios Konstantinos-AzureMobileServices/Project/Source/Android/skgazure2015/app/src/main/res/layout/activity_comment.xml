@@ -8,12 +8,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
         android:background="#71BCFA"
         android:padding="6dip" >
 
         <TextView
-            android:id="@+id/textViewTitle"
+            android:id="@+id/title_activity_comment"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
@@ -27,7 +27,7 @@
             android:layout_height="28dp" />
     </LinearLayout>
 
-    <!--
+
      <LinearLayout
         android:layout_width="match_parent" 
         android:layout_height="wrap_content" 
@@ -53,13 +53,13 @@
             android:text="@string/add_button_text" />
 
     </LinearLayout>
-    -->
+
 
     <ListView
-        android:id="@+id/listViewToDo"
+        android:id="@+id/listComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/row_list_to_do" 
+        tools:listitem="@layout/comment_list"
         android:padding="6dip" >
 
     </ListView>
